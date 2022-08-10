@@ -14,10 +14,21 @@ img {
 }
 
 .container {
-  max-width: 1170px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding: 60px 15px;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 830px;
+  }
+}
+
+@media (max-width: 829px) {
+  .container {
+    max-width: 600px;
+  }
 }
 
 .row {
@@ -31,6 +42,32 @@ img {
 
 .sidebar {
   width: 270px;
+  min-height: 200px;
+}
+
+@media (max-width: 829px) {
+  .sidebar {
+    /* display:none; */
+    margin-left: 0 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 37%);
+    overflow-y: scroll;
+    transform: translateX(-150%);
+    transition: transform 0.3s ease-in;
+  }
+
+  .sidebar--mobile-active {
+    transform: translateX(0%);
+  }
+}
+
+.main + .sidebar {
+  margin-left: 30px;
 }
 
 .cards-holder {
@@ -39,8 +76,19 @@ img {
   flex-wrap: wrap;
 }
 
-.cards-holder>.card-link {
+@media (max-width: 599px) {
+  .cards-holder {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.cards-holder > .card-link {
   margin-bottom: 30px;
+}
+
+.card-link--hidden {
+  display: none !important;
 }
 
 /* Card */
@@ -70,7 +118,7 @@ a.card-link:hover {
   display: flex;
 }
 
-.card__badges>*+* {
+.card__badges > * + * {
   margin-left: 10px;
 }
 
@@ -142,6 +190,10 @@ a.card-link:hover {
 /* Button more */
 
 .btn-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   height: 80px;
 
@@ -164,15 +216,17 @@ a.card-link:hover {
 }
 
 .btn-more img {
-  display: inline-block;
   margin-right: 10px;
-  vertical-align: bottom;
 }
 
 /* Sidebar */
 
-.widget+.widget {
-  margin-top: 30px;
+.widget + .widget {
+  margin-top: 33px;
+}
+
+.widget--top-30 {
+  margin-top: 30px !important;
 }
 
 .widget__title {
@@ -182,6 +236,7 @@ a.card-link:hover {
   font-size: 18px;
   line-height: 1.16;
   color: #000000;
+  cursor: pointer;
 }
 
 .widget__title::after {
@@ -189,12 +244,22 @@ a.card-link:hover {
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 1px;
+  top: -1px;
   background-image: url("../img/icons/chevron-up.svg");
   background-repeat: no-repeat;
   background-size: initial;
   background-position: center;
+  transition: transform 0.2s ease-in;
+}
+
+.widget__title--active::after{
+  transform: rotate(-180deg);
+}
+
+
+.widget__body--hidden {
+  display: none;
 }
 
 /* Location buttons group */
@@ -220,7 +285,7 @@ a.card-link:hover {
   flex-grow: 1;
 
   font-family: inherit;
-  height: 50px;
+  height: 48px;
   padding: 0 15px;
 
   background-color: transparent;
@@ -248,11 +313,11 @@ a.card-link:hover {
   appearance: none;
 }
 
-.location__checkbox:checked+.location__btn {
+.location__checkbox:checked + .location__btn {
   background-color: #ffcf26;
 }
 
-.location__checkbox:checked+.location__btn:hover {
+.location__checkbox:checked + .location__btn:hover {
   background-color: #e0b000;
 }
 
@@ -263,7 +328,7 @@ a.card-link:hover {
   cursor: pointer;
 }
 
-.radio+.radio {
+.radio + .radio {
   margin-top: 15px;
 }
 
@@ -278,7 +343,7 @@ a.card-link:hover {
 .radio__fake {
   position: relative;
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 7px;
   width: 20px;
   height: 20px;
   background-color: #fff;
@@ -287,11 +352,11 @@ a.card-link:hover {
   vertical-align: bottom;
 }
 
-.radio__real:checked+.radio__fake {
+.radio__real:checked + .radio__fake {
   background-color: #ffe074;
 }
 
-.radio__real:checked+.radio__fake::before {
+.radio__real:checked + .radio__fake::before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -303,7 +368,7 @@ a.card-link:hover {
   transform: translate(-50%, -50%);
 }
 
-.radio__real:checked~.radio__title {
+.radio__real:checked ~ .radio__title {
   font-weight: 500;
   color: #000;
 }
@@ -312,7 +377,7 @@ a.card-link:hover {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.18;
-  color: #3C3C3C;
+  color: #3c3c3c;
 }
 
 /* Checkbox */
@@ -322,7 +387,11 @@ a.card-link:hover {
   cursor: pointer;
 }
 
-.checkbox+.checkbox {
+.checkbox--hidden{
+  display: none;
+}
+
+.checkbox + .checkbox {
   margin-top: 15px;
 }
 
@@ -337,7 +406,7 @@ a.card-link:hover {
 .checkbox__fake {
   position: relative;
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 7px;
   width: 20px;
   height: 20px;
   background-color: transparent;
@@ -346,11 +415,11 @@ a.card-link:hover {
   vertical-align: bottom;
 }
 
-.checkbox__real:checked+.checkbox__fake {
+.checkbox__real:checked + .checkbox__fake {
   background-color: #ffe074;
 }
 
-.checkbox__real:checked+.checkbox__fake::before {
+.checkbox__real:checked + .checkbox__fake::before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -367,10 +436,10 @@ a.card-link:hover {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.18;
-  color: #3C3C3C;
+  color: #3c3c3c;
 }
 
-.checkbox__real:checked~.checkbox__title {
+.checkbox__real:checked ~ .checkbox__title {
   font-weight: 500;
   color: #000;
 }
@@ -381,7 +450,7 @@ a.card-link:hover {
   display: none;
 }
 
-.widget__show-hidden {
+.widget__btn-show-hidden {
   display: inline-block;
   margin-top: 15px;
   background: transparent;
@@ -390,12 +459,191 @@ a.card-link:hover {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.19;
-  color: #4290C9;
+  color: #4290c9;
   cursor: pointer;
-  transition: color .2s ease-in;
+  transition: color 0.2s ease-in;
 }
 
-.widget__show-hidden:hover {
+.widget__btn-show-hidden:hover {
   color: #007dd6;
   text-decoration: underline;
+}
+
+/* Toggle */
+
+.toggle {
+  cursor: pointer;
+}
+.toggle__real {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  opacity: 0;
+  appearance: none;
+}
+.toggle__fake {
+  position: relative;
+  display: inline-block;
+  margin-right: 7px;
+  width: 37px;
+  height: 20px;
+  background-color: #c4c4c4;
+  border-radius: 10px;
+  vertical-align: bottom;
+}
+
+.toggle__fake::before {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #3c3c3c;
+  border-radius: 50%;
+  transition: all 0.2s ease-in;
+}
+
+.toggle__real:checked + .toggle__fake {
+  background-color: #ffe074;
+}
+
+.toggle__real:checked + .toggle__fake::before {
+  left: 19px;
+}
+
+.toggle__title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.18;
+  color: #3c3c3c;
+}
+
+.toggle__real:checked ~ .toggle__title {
+  font-weight: 500;
+  color: #000;
+}
+
+/* Form buttons */
+
+.form-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 50px;
+
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
+
+  background-color: transparent;
+
+  font-family: inherit;
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  color: #3c3c3c;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+
+.form-btn img {
+  margin-right: 6px;
+}
+
+.form-btn:hover {
+  background-color: #e7e7e7;
+}
+
+.form-btn + .form-btn {
+  margin-top: 10px;
+}
+
+.form-btn--submit {
+  background: #ffcf26;
+  border: none;
+  color: #000000;
+}
+
+.form-btn--submit:hover {
+  background-color: #ffe173;
+}
+
+/* BUTTON TOGGLE SIDEBAR */
+
+.toggle-sidebar {
+  display: none;
+  position: fixed;
+  z-index: 9;
+  top: 8px;
+  right: 15px;
+  width: 45px;
+  height: 45px;
+  background-color: #404040;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 829px) {
+  .toggle-sidebar {
+    display: flex;
+  }
+}
+
+.menu-icon-wrapper {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+}
+
+.menu-icon {
+  position: relative;
+  width: 30px;
+  height: 5px;
+  background-color: #fff;
+}
+
+.menu-icon::before {
+  position: absolute;
+  left: 0;
+  top: -10px;
+  content: "";
+  width: 30px;
+  height: 5px;
+  background-color: #fff;
+  transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+}
+
+.menu-icon::after {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  content: "";
+  width: 30px;
+  height: 5px;
+  background-color: #fff;
+  transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+}
+
+.menu-icon.menu-icon-active {
+  background-color: transparent;
+}
+
+.menu-icon.menu-icon-active::before {
+  transform: rotate(45deg);
+  top: 0;
+  transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+}
+
+.menu-icon.menu-icon-active::after {
+  transform: rotate(-45deg);
+  top: 0;
+  transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
 }
